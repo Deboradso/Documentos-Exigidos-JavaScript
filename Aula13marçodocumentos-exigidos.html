@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Devo Apresentar Quais Documentos?</title>
+</head>
+
+<body>
+    <input type="text" id="nome" placeholder="Nome Completo">
+    <select id="genero">
+        <option></option>
+        <option value="f">Feminino</option>
+        <option value="m">Masculino</option>
+    </select>
+    <input type="date" id="nascimento">
+    <button id="verificar">Verificar</button>
+    <p id="resposta"></p>
+
+    <script>
+        // ()parênteses: Serve para mudar a ordem da excecução, e delimitar os parâmentros de entrada das funções, detalhar condições ou repetições
+        // {}chaves: São usadas para delimitar blocos de código, e também para definii objetos literais.
+        // []colchetes: Serve para definir vetores em matrizes, acessar posições em vetrores/matrizes
+
+        function verificarDocumentos() {
+            if (nome.value == '') {
+                resposta.textContent = 'O campo "Nome completo" é obrigatório!'
+                resposta.style.color = 'red'
+                nome.focus()
+                return
+            }
+
+            if (genero.value == '') {
+                resposta.textContent = 'O campo "Gênero" é obrigatório!'
+                resposta.style.color = 'red'
+                genero.focus()
+                return
+            }
+
+            if (nascimento.value == '') {
+                resposta.textContent = 'O campo "Nascimento" é obrigatório!'
+                resposta.style.color = 'red'
+                nascimento.focus()
+                return
+            }
+            resposta.textContent = ''
+            resposta.style.color = ''
+
+            let idade = calcularIdade()
+            alert(idade)
+
+            if (genero.value == 'f') {
+                resposta.textContent = 'Você precisa de "Comprovante" de Alistamento Militar'
+            }
+        }
+
+        function calcularIdade() {
+            //Pega o ano da data de nascimento
+            let anoNascimento =new Date(nascimento.value).getFullYear()
+            let mesNascimento =new Date(nascimento.value).getMonth()
+            let diaNascimento =new Date(nascimento.value).getDate()
+
+            //Pega ano, mês e dia atual 
+            let anoAtual = new Date().getFullYear()
+            let mesAtual = new Date().getMonth()
+            let diaAtual = new Date().getDate()
+
+            //ano atual - ano de nascimento
+            let idade = anoAtual - anoNascimento
+
+            //se o mês autal < mes do aniversario, idade - 1
+            if (mesAtual < mesNascimento){
+                idade--
+            }
+
+            //se o mês atual = mês do aniversario, olha o dia
+            if (mesAtual == mesNascimento){
+                //se o dia atual < dia do aniversário, idade - 1
+                if (diaAtual < diaNascimento){
+                    idade--
+                }
+            }
+            
+            //retorna a resposta
+            return idade
+        }
+
+        verificar.onclick = verificarDocumentos
+
+
+    </script>
+</body>
+
+</html>
